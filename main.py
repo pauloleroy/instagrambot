@@ -66,7 +66,6 @@ def filter_verified(userlist):
         n = mylist[x].find('\nVerified')
         if n > -1:
             mylist[x] = mylist[x][:n]
-            mylist[x].replace('\nVerified','')
     return mylist
 
 chrome_driver_path = "C:\\Development\\chromedriver.exe"
