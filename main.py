@@ -25,11 +25,23 @@ class InstaBot():
         time.sleep(2)
 
     def get_followers(self,useraccount):
+        self.get_profile_info('followers',useraccount) 
+
+    def get_following(self, useraccount):
+        self.get_profile_info('following',useraccount)    
+
+    def get_likes(self):
         pass
 
-    def get_following(self,useraccount):
+    def auto_follow(self):
+        pass
+
+    def unfollow(self):
+        pass
+
+    def get_profile_info(self,info,useraccount):
         time.sleep(5)
-        self.driver.get(f"https://www.instagram.com/{useraccount}/following/")            
+        self.driver.get(f"https://www.instagram.com/{useraccount}/{info}/")            
         time.sleep(2)
         modal = self.driver.find_element(by=By.CLASS_NAME, value="_aano")
         last_height = self.driver.execute_script("return arguments[0].scrollTop = arguments[0].scrollHeight",modal)
@@ -42,19 +54,8 @@ class InstaBot():
                 break
             last_height = new_height   
         unfiltered_list = self.driver.find_elements(by=By.CSS_SELECTOR,value="._ab8y._ab94._ab97._ab9f._ab9k._ab9p._abcm")
-        following_list = filter_verified(unfiltered_list)
-        print(len(following_list))
-        print(following_list)
-        print(len(following_list))      
-
-    def get_likes(self):
-        pass
-
-    def auto_follow(self):
-        pass
-
-    def unfollow(self):
-        pass
+        filtered_list = filter_verified(unfiltered_list)
+        return filtered_list 
 
 def filter_verified(userlist):
     mylist = []
