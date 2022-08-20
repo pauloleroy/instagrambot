@@ -6,11 +6,12 @@ ctk.set_appearance_mode("light")
 class App(ctk.CTk):
     w = 1180 #get user computer resolution
     h = 620
-    def __init__(self):
+    def __init__(self, bot):
         super().__init__()
         self.state("zoomed")
         self.title("Instagram BOT")
         self.geometry(f"{App.w}x{App.h}")
+        self.bot = bot
 
         self.grid_rowconfigure(1, weight=1)
         self.top_frame = ctk.CTkFrame(master=self)
@@ -30,7 +31,7 @@ class App(ctk.CTk):
         self.password_label.grid(row=0,column=2, padx = 15)
         self.password_entry = ctk.CTkEntry(master=self.top_frame,show="*")
         self.password_entry.grid(row=0,column=3, ipadx=50)
-        self.login_button = ctk.CTkButton(master=self.top_frame, text="Log in")
+        self.login_button = ctk.CTkButton(master=self.top_frame, text="Log in",command=self.login)
         self.login_button.grid(row=0,column=4,padx=30)
         self.login_button.grid()
 
@@ -71,6 +72,6 @@ class App(ctk.CTk):
         self.unfollow_list = tkinter.Listbox(master=self.right_frame)
         self.unfollow_list.grid(row=1,column=0,columnspan=3,sticky="ns", pady=20,ipadx=60)
 
-        
-app = App()
-app.mainloop()
+    def login(self):
+        self.bot.login(self.login_entry.get(),self.password_entry.get())
+        self.bot.get_following(self.login_entry.get())
