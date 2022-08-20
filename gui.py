@@ -6,15 +6,14 @@ ctk.set_appearance_mode("light")
 class App(ctk.CTk):
     w = 1180 #get user computer resolution
     h = 620
-    def __init__(self, bot, database, queries):
+    def __init__(self, bot, database):
         super().__init__()
         self.state("zoomed")
         self.title("Instagram BOT")
         self.geometry(f"{App.w}x{App.h}")
         self.bot = bot
         self.database = database
-        self.queries = queries
-        
+
         self.grid_rowconfigure(1, weight=1)
         self.top_frame = ctk.CTkFrame(master=self)
         self.top_frame.grid(row=0,column=0,columnspan=2,padx=5, pady=5, sticky="we")
@@ -84,8 +83,11 @@ class App(ctk.CTk):
         print(len(follwing_list))
     
     def insert_account(self):
+        self.database.insert_related_page(self.login_entry.get(),self.user_entry.get())
+        '''
         self.related_list.insert(tkinter.END, self.user_entry.get())
         self.user_entry.delete(0,tkinter.END)
+        '''
     
     def delete_account(self):
         self.related_list.delete(tkinter.ANCHOR)

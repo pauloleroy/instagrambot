@@ -80,7 +80,7 @@ def filter_verified(userlist):
 
 CHROME_DRIVER_PATH = "C:\\Development\\chromedriver.exe"
 bot = InstaBot(CHROME_DRIVER_PATH)
-database = DBConnection()
 queries = MyQueries()
-app = App(bot, database, queries)
+database = DBConnection(queries)
+app = App(bot, database)
 app.mainloop()

@@ -1,10 +1,10 @@
 import psycopg2 as pg2
 
 class DBConnection():
-    def __init__(self):
+    def __init__(self, queries):
         self.conn = pg2.connect(database='bottest', user='postgres',password='3720')
-        
-    
+        self.queries = queries
+            
     def insert_user(self):
         pass
 
@@ -35,8 +35,14 @@ class DBConnection():
 
     def insert_related_page(self, user_id, instagram_id):
         cur = self.conn.cursor()
-        cur.execute()
-        cur.commit()
+        query = self.queries.select_user_id(user_id)
+        cur.execute(query)
+        my_user_id = cur.fetchall()[0][0]
+        #Insert instagram id if not exist otherwise get instagram id
+        query = self.queries.select_instagram_id(instagram_id)
+        cur.execute(query)
+        my_instagram_id = cur.fetchall()[0][0]
+        #cur.commit()
         pass
 
     def drop_related_page(self):
