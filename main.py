@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import ElementClickInterceptedException
 from gui import App
+from dbclass import DBConnection
+from queriesfile import MyQueries
 
 class InstaBot():
     def __init__(self,path):
@@ -78,5 +80,7 @@ def filter_verified(userlist):
 
 CHROME_DRIVER_PATH = "C:\\Development\\chromedriver.exe"
 bot = InstaBot(CHROME_DRIVER_PATH)
-app = App(bot)
+database = DBConnection()
+queries = MyQueries()
+app = App(bot, database, queries)
 app.mainloop()

@@ -6,13 +6,15 @@ ctk.set_appearance_mode("light")
 class App(ctk.CTk):
     w = 1180 #get user computer resolution
     h = 620
-    def __init__(self, bot):
+    def __init__(self, bot, database, queries):
         super().__init__()
         self.state("zoomed")
         self.title("Instagram BOT")
         self.geometry(f"{App.w}x{App.h}")
         self.bot = bot
-
+        self.database = database
+        self.queries = queries
+        
         self.grid_rowconfigure(1, weight=1)
         self.top_frame = ctk.CTkFrame(master=self)
         self.top_frame.grid(row=0,column=0,columnspan=2,padx=5, pady=5, sticky="we")
@@ -39,13 +41,13 @@ class App(ctk.CTk):
         self.user_label.grid(row=0,column=0,pady=5)
         self.user_entry = ctk.CTkEntry(master=self.left_frame)
         self.user_entry.grid(row=0,column=1, ipadx=40)
-        self.add_button = ctk.CTkButton(master=self.left_frame, text="Add")
+        self.add_button = ctk.CTkButton(master=self.left_frame, text="Add", command=self.insert_account)
         self.add_button.grid(row=1,column=1,pady=2)
         self.list_label = ctk.CTkLabel(master=self.left_frame, text="List")
         self.list_label.grid(row=2,column=0, padx=10, sticky="ne",pady=2)
         self.related_list = tkinter.Listbox(master=self.left_frame)
         self.related_list.grid(row=2,column=1,ipadx=40, ipady=150,pady=2)
-        self.remove_button = ctk.CTkButton(master=self.left_frame, text="Remove")
+        self.remove_button = ctk.CTkButton(master=self.left_frame, text="Remove", command=self.delete_account)
         self.remove_button.grid(row=3, column=1,pady=2)
         self.since_label = ctk.CTkLabel(master=self.left_frame, text="Check since")
         self.since_label.grid(row=4,column=0,pady=2)
@@ -80,3 +82,10 @@ class App(ctk.CTk):
         print(len(followers_list))
         print(follwing_list)
         print(len(follwing_list))
+    
+    def insert_account(self):
+        self.related_list.insert(tkinter.END, self.user_entry.get())
+        self.user_entry.delete(0,tkinter.END)
+    
+    def delete_account(self):
+        self.related_list.delete(tkinter.ANCHOR)

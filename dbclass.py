@@ -1,8 +1,9 @@
-import psycopg2
+import psycopg2 as pg2
 
 class DBConnection():
     def __init__(self):
-        pass
+        self.conn = pg2.connect(database='bottest', user='postgres',password='3720')
+        
     
     def insert_user(self):
         pass
@@ -10,7 +11,8 @@ class DBConnection():
     def insert_login_track(self):
         pass
 
-    def insert_instagram_account(self):
+    def insert_instagram_account(self, instagram_account):
+
         pass
 
     def insert_following(self):
@@ -31,7 +33,10 @@ class DBConnection():
     def insert_like_track(self):
         pass
 
-    def insert_related_page(self):
+    def insert_related_page(self, user_id, instagram_id):
+        cur = self.conn.cursor()
+        cur.execute()
+        cur.commit()
         pass
 
     def drop_related_page(self):

@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS user_list(
     user_id SERIAL PRIMARY KEY,
     user_account VARCHAR(100) UNIQUE NOT NULL,
-    create_on TIMESTAMP NOT NULL,
+    created_on TIMESTAMP NOT NULL,
     is_activated BOOLEAN NOT NULL
 )
 CREATE TABLE IF NOT EXISTS instagram_account (
     instagram_id SERIAL PRIMARY KEY,
-    instagram_accouunt VARCHAR(100) NOT NULL,
+    instagram_account VARCHAR(100) UNIQUE NOT NULL,
     created_on TIMESTAMP NOT NULL,
     is_activated BOOLEAN NOT NULL
 )
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS related_page(
 CREATE TABLE IF NOT EXISTS photo(
     photo_id SERIAL PRIMARY KEY,
     instagram_id INTEGER REFERENCES instagram_account(instagram_id) NOT NULL,
-    photo_url VARCHAR(400) NOT NULL,
+    photo_url VARCHAR(400) UNIQUE NOT NULL,
     photo_date DATE NOT NULL,
     is_activated BOOLEAN NOT NULL
 )
