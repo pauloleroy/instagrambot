@@ -74,5 +74,9 @@ class App(ctk.CTk):
 
     def login(self):
         self.bot.login(self.login_entry.get(),self.password_entry.get())
-        self.bot.get_following(self.login_entry.get())
-        self.bot.get_followers(self.login_entry.get())
+        follwing_list = self.bot.get_following(self.login_entry.get())
+        followers_list = self.bot.get_followers(self.login_entry.get())
+        print(followers_list)
+        print(len(followers_list))
+        print(follwing_list)
+        print(len(follwing_list))
