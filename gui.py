@@ -74,45 +74,20 @@ class App(ctk.CTk):
         self.unfollow_list.grid(row=1,column=0,columnspan=3,sticky="ns", pady=20,ipadx=60)
 
     def login(self):
-        
-        """
         self.bot.login(self.login_entry.get(),self.password_entry.get())
-        #check if login was successful instagram before open main gui
-        #insert user to database if doesnt exist
-        #insert login_track
-        """
-        
-        #loading related list
-        self.related_list.delete(0,tkinter.END)
-        related_list = self.database.load_related_page(self.login_entry.get().lower())
-        for item in related_list:
-            self.related_list.insert(tkinter.END, item[0])
-        #clear and loading followers and following to database       
-        '''
-        self.database.delete_following()
-        self.database.delete_follower()
-        following_list = self.bot.get_following(self.login_entry.get())
-        follower_list = self.bot.get_followers(self.login_entry.get())
-        for following in following_list:
-            self.database.insert_following(following)
-        for follower in follower_list:
-            self.database.insert_follower(follower)
-        '''
-        
+        follwing_list = self.bot.get_following(self.login_entry.get())
+        followers_list = self.bot.get_followers(self.login_entry.get())
+        print(followers_list)
+        print(len(followers_list))
+        print(follwing_list)
+        print(len(follwing_list))
+    
     def insert_account(self):
-        to_insert = self.database.check_related_id_exists(self.login_entry.get().lower(),self.user_entry.get().lower())
-        if to_insert:
-            self.database.insert_related_page(self.login_entry.get().lower(),self.user_entry.get().lower())
-            self.related_list.insert(tkinter.END, self.user_entry.get())
-            self.user_entry.delete(0,tkinter.END)
-            #insert msgbox
-        else:
-            #insert msgbox
-            pass
-        
+        self.database.insert_related_page(self.login_entry.get(),self.user_entry.get())
+        '''
+        self.related_list.insert(tkinter.END, self.user_entry.get())
+        self.user_entry.delete(0,tkinter.END)
+        '''
     
     def delete_account(self):
-        if self.related_list.curselection():
-            self.database.delete_related_page(self.login_entry.get().lower(),self.related_list.get(tkinter.ANCHOR).lower())
-            self.related_list.delete(tkinter.ANCHOR)
-            #insert msgbox
+        self.related_list.delete(tkinter.ANCHOR)
